@@ -87,6 +87,30 @@ void reset_voltages () {
   }
 }
 
+/*
+void get_cs_ch(i,&cs,&ch) {
+    if ((i>=0)&(i<=15)) {
+        cs=10
+        ch=i
+    } elif ((i>=16)&(i<=31)) {
+        cs=9
+        ch=i-16
+    } elif ((i>=32)&(i<=47)) {
+        cs=8
+        ch=i-32
+    } elif ((i>=48)&(i<=49)) {
+        cs=7
+        ch=i-48
+    }
+}
+
+
+...
+
+get_cs_ch(52,cs,ch)
+set_voltage(cs,ch,voltage)
+*/
+
 void loop() {
   int voltage_index;
   recvWithStartEndMarkers();
@@ -142,10 +166,10 @@ void loop() {
       Serial.println("Zeroing all channels");
       for (int i=0;i<numdacs;i++) {
         for (int c=0;c<numadc_per_dac;c++) {    
-          Serial.print("Zeroing CSbar ");
-          Serial.print(dacs[i]);
-          Serial.print(" channel ");
-          Serial.println(c);
+          //Serial.print("Zeroing CSbar ");
+          //Serial.print(dacs[i]);
+          //Serial.print(" channel ");
+          //Serial.println(c);
           digitalWrite(dacs[i],LOW);
           SPI.transfer16(0x0030|(c & 0xF));
           SPI.transfer16(dac_value(0.));
